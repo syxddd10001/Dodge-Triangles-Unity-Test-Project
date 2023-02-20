@@ -8,8 +8,9 @@ public class move : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpingPower = 6f;
     private float horizontal;
+    private float vertical;
 
-    
+
     [SerializeField] private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -22,11 +23,24 @@ public class move : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+
+
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y*1f);
+        }
+
+
     }
     void FixedUpdate() // updating every reference frame. ie. 60 fps and 24 fps would have the same movement update
     {
-        rb.velocity = new Vector2(horizontal * moveSpeed, rb.velocity.y);
-        
+        rb.velocity = new Vector2(horizontal * moveSpeed, rb.velocity.y);   
     }
 
 }
