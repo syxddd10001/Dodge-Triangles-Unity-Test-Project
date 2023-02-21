@@ -23,24 +23,23 @@ public class move : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetButtonDown("Jump"))
-        {
+        if (Input.GetKeyDown(KeyCode.F)) {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-
-
+            wait();
+        } else {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 1f);
         }
-
-        if (Input.GetButtonUp("Jump"))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y*1f);
-        }
+        
 
 
     }
     void FixedUpdate() // updating every reference frame. ie. 60 fps and 24 fps would have the same movement update
     {
         rb.velocity = new Vector2(horizontal * moveSpeed, rb.velocity.y);   
+    }
+
+    IEnumerator wait() {
+        yield return new WaitForSeconds(1.0f);
     }
 
 }
